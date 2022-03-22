@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model list {
+  id      Int    @id @default(autoincrement())
+  title   String @default("")
+  comment String @default("")
+  author  String @default("")
+
+  ranking ranking[]
+
+  @@index([title], map: "idx_list_title")
+}
+
+model list_queue {
+  date    Int    @id @default(autoincrement())
+  title   String @default("")
+  comment String @default("")
+  author  String @default("")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model ranking {
+  id        Int     @id @default(autoincrement())
+  gameid    Int     @default(0)
+  game      list    @relation(fields: [gameid], references: [id])
+  score     Int     @default(0)
+  date      Int     @default(0)
+  userid    Int?
+  guestname String?
+  mail      String?
+  comment   String?
+  ip        String?
+
+  @@index([gameid, score, date], map: "idx_ranking_gameid_score_date")
+  @@index([date], map: "idx_ranking_date")
+  @@index([gameid], map: "idx_ranking_gameid")
+  @@index([score], map: "idx_ranking_score")
+}
+
+model series {
+  id      Int     @id @default(autoincrement())
+  title   String  @default("")
+  title_s String  @default("")
+  author  String  @default("")
+  detail  String?
+  good    Int?
+
+  @@index([author, id], map: "idx_series_author_id")
+}
+
+model user {
+  id      Int    @id @default(autoincrement())
+  author  String @default("")
+  comment String
+}
+
+// initial stuff
+model User {
+  id    String @id @default(cuid())
+  email String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  password Password?
+}
+
+model Password {
+  hash String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String @unique
+}
