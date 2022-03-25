@@ -1,20 +1,19 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "@node-rs/bcrypt";
-throw new Error("Cannot seed database");
-/*
+
 const prisma = new PrismaClient();
 
 async function seed() {
   const email = "rachel@remix.run";
 
   // cleanup the existing database
-  await prisma.user.delete({ where: { email } }).catch(() => {
+  await prisma.account.delete({ where: { email } }).catch(() => {
     // no worries if it doesn't exist yet
   });
 
   const hashedPassword = await bcrypt.hash("rachelrox", 10);
 
-  const user = await prisma.user.create({
+  const user = await prisma.account.create({
     data: {
       email,
       password: {
@@ -22,22 +21,6 @@ async function seed() {
           hash: hashedPassword,
         },
       },
-    },
-  });
-
-  await prisma.note.create({
-    data: {
-      title: "My first note",
-      body: "Hello, world!",
-      userId: user.id,
-    },
-  });
-
-  await prisma.note.create({
-    data: {
-      title: "My second note",
-      body: "Hello, world!",
-      userId: user.id,
     },
   });
 
@@ -52,5 +35,3 @@ seed()
   .finally(async () => {
     await prisma.$disconnect();
   });
-
- */
