@@ -9,7 +9,7 @@ const RankingTable: VFC<Props> = ({ scores }) => {
   let lastScore = Infinity;
 
   return (
-    <table border="1">
+    <table>
       <thead>
       <tr>
         <th>順位</th>

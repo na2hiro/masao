@@ -3,6 +3,17 @@ import { prisma } from "~/db.server";
 import { H3 } from "~/components/Elements";
 import { idToPath, idToString } from "~/utils";
 
+type LoaderData = {
+  scores: {
+    id: number,
+    guestname: string,
+    game: {
+      id: number;
+      title: string;
+    },
+  }[];
+}
+
 export const loader: LoaderFunction = async () => {
   const scores = await prisma.ranking.findMany({
     select: {
@@ -25,7 +36,7 @@ export const loader: LoaderFunction = async () => {
 }
 
 export default function Recent() {
-  const {scores} = useLoaderData();
+  const {scores} = useLoaderData<LoaderData>();
 
   return (
     <>

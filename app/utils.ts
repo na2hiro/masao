@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useMatches } from "remix";
 
-import type { User } from "~/models/user.server";
+import type { Account } from "~/models/user.server";
 
 /**
  * This base hook is used in other hooks to quickly search for specific data
@@ -20,11 +20,11 @@ export function useMatchesData(
   return route?.data;
 }
 
-function isUser(user: any): user is User {
+function isUser(user: any): user is Account {
   return user && typeof user === "object" && typeof user.email === "string";
 }
 
-export function useOptionalUser(): User | undefined {
+export function useOptionalUser(): Account | undefined {
   const data = useMatchesData("root");
   if (!data || !isUser(data.user)) {
     return undefined;
@@ -32,7 +32,7 @@ export function useOptionalUser(): User | undefined {
   return data.user;
 }
 
-export function useUser(): User {
+export function useUser(): Account {
   const maybeUser = useOptionalUser();
   if (!maybeUser) {
     throw new Error(
