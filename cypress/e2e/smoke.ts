@@ -4,7 +4,5 @@ describe("smoke tests", () => {
     cy.findByRole("heading", {name: "スーパー正男"})
     cy.findAllByRole("link", { name: "01" }).first().click();
     cy.findByRole("heading", {name: "その1"})
-    cy.findAllByRole("link", { name: "10" }).first().click();
-    cy.findByRole("heading", {name: "その10"})
   });
 });

@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "@node-rs/bcrypt";
 
-/*
 const prisma = new PrismaClient();
 
 async function seed() {
@@ -14,7 +13,7 @@ async function seed() {
 
   const hashedPassword = await bcrypt.hash("rachelrox", 10);
 
-  const user = await prisma.account.create({
+ await prisma.account.create({
     data: {
       email,
       password: {
@@ -24,6 +23,15 @@ async function seed() {
       },
     },
   });
+
+ await prisma.list.create({
+   data: {
+     id: 1,
+     title: "真夜中の工場",
+     comment: "嫌味。エレベーターを使ってます。",
+     author: "na2hiro"
+   }
+ })
 
   console.log(`Database has been seeded. 🌱`);
 }
@@ -36,5 +44,3 @@ seed()
   .finally(async () => {
     await prisma.$disconnect();
   });
-
- */
